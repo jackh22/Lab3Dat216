@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../model/recipe_database/recipe_handler.dart';
+import 'package:lab2/app_theme.dart';
 
 class TimeControl extends StatefulWidget {
   const TimeControl({super.key});
@@ -31,7 +32,15 @@ class _TimeControlState extends State<TimeControl> {
             });
           },
         ),
-        Text('${_time.round()} minuter'),
+        Row(
+  mainAxisAlignment: MainAxisAlignment.end,
+  children: [
+    Padding(
+      padding: const EdgeInsets.only(right: AppTheme.paddingLarge),
+      child: Text('${_time.round()} minuter'),
+    ),
+  ],
+),
       ],
     );
   }

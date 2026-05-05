@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/app_theme.dart';
 import 'package:provider/provider.dart';
 
 import '../util/cuisine.dart';
@@ -9,26 +10,32 @@ class KitchenControl extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var recipeHandler = Provider.of<RecipeHandler>(context, listen: false);
-
     const labels = Cuisine.labels;
 
-    return DropdownMenu<String>(
-      width: 164,
-      enableFilter: false,
-      requestFocusOnTap: false,
-      initialSelection: labels[0],
-      dropdownMenuEntries: [
-        for (final label in labels)
-          DropdownMenuEntry(
-            value: label,
-            label: label,
-          ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        const Text('Kök:'),
+        const SizedBox(width: AppTheme.paddingSmall),
+        DropdownMenu<String>(
+          width: 164,
+          enableFilter: false,
+          requestFocusOnTap: false,
+          initialSelection: labels[0],
+          dropdownMenuEntries: [
+            for (int i = 0; i < labels.length; i++)
+              DropdownMenuEntry(
+                value: labels[i],
+                label: labels[i],
+                leadingIcon: Cuisine.flags[i],
+              ),
+          ],
+          onSelected: (value) {
+            recipeHandler.setCuisine(value);
+          },
+        ),
       ],
-      onSelected: (value) {
-        recipeHandler.setCuisine(value);
-      },
     );
   }
 }
